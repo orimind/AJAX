@@ -22,7 +22,14 @@
   <style>
   	.r-ent{
   		background-color:#a9a7a6;
+  		color: #000000;
   	}
+  	.nrec{
+  		height: 0px;
+  	}
+  	a:link {
+		color: #362b94;
+	}
   </style>
 
 </head>
@@ -80,10 +87,14 @@
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="#">Activity Log</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <form>
+          	Username:<br>
+			<input id="data1" type="text" name="name">
+			<br>
+			Password<br>
+			<input id="data2" type="text" name="Password">
+			<br>
+          </form>
         </div>
       </li>
     </ul>
