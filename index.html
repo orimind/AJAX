@@ -215,7 +215,7 @@
         </ol>
        
        <!-- choose -->
-      	<div class="r-list-container action-bar-margin bbs-screen">
+      	<div class="r-list-container action-bar-margin bbs-screen" style="float: left; height: 70%;width: 70%;">
 		<div class="search-bar">
 			<form type="get" action="search" id="search-bar">
 				<input class="query" type="text" name="q" value="" placeholder="搜尋文章&#x22ef;">
@@ -337,7 +337,17 @@
 
 
       </div>
-      <!-- /.container-fluid -->
+      <!-- chat box -->
+      <div class="r-ent" style="float: right; width: 25%;height: 25%">
+      	<div class="as-mes-title">廣場聊天室
+      	</div>
+      	<div id="chatRoom">
+      		<input type="text" id="push_msg" placeholder="訊息"/>
+    		<button id="push_test">Push</button><br><br>  
+    		<label>大家都在說</label><br>
+    		<label  id="data"></label><br>
+      	</div>
+      </div>
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">
@@ -377,7 +387,37 @@
       </div>
     </div>
   </div>
+  <!-- chatcox-->
+  <script >
+  	var user = firebase.auth().currentUser;
+  	var name
+	if (user) {
+		name = user;
+		$(document).ready(function(){ 
+            $("#push_test").click(function(){
+                var name         = $('#push_name').val();
+                var msg          = $('#push_msg').val();
+                push(name, msg);
+            });  
+            function display_msgs(data_val){
+              keys = Object.keys(data_val);
+              msgs = '';
+              
+              for (var i = keys.length - 1; i >= 0; i--) {
+                msgs += data_val[keys[i]]['username'] +': '+ data_val[keys[i]]['message']+'<br>';
+              }
+              $('#data').html(msgs); 
+            }
+            db.ref('message/').on('value', function(snapshot) {
+              display_msgs(snapshot.val());
+            });  
+        });         
+	}
+	else {
+  		alert("User is not logined yet.");
+  	}
 
+  </script>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
