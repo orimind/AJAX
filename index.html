@@ -100,13 +100,13 @@
         });         
     </script>
     <!-- chatcox-->
-	  <script >
+	<script >
 	  	var user = firebase.auth().currentUser;
 		if (user) {
 			name = user;
 			$(document).ready(function(){ 
 	            $("#push_test").click(function(){
-	                var name         = user.val();
+	                var name         = user.displayName.val();
 	                var msg          = $('#push_msg').val();
 	                push(name, msg);
 	            });  
@@ -128,7 +128,7 @@
 	  		alert("User is not logined yet.");
 	  	}
 
-	  </script>
+	</script>
 
 </head>
 
