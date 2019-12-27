@@ -99,6 +99,37 @@
             });                         
         });         
     </script>
+    <!-- chatcox-->
+	  <script >
+	  	var user = firebase.auth().currentUser;
+	  	var name
+		if (user) {
+			name = user;
+			$(document).ready(function(){ 
+	            $("#push_test").click(function(){
+	                var name         = $('#push_name').val();
+	                var msg          = $('#push_msg').val();
+	                push(name, msg);
+	            });  
+	            function display_msgs(data_val){
+	              keys = Object.keys(data_val);
+	              msgs = '';
+	              
+	              for (var i = keys.length - 1; i >= 0; i--) {
+	                msgs += data_val[keys[i]]['username'] +': '+ data_val[keys[i]]['message']+'<br>';
+	              }
+	              $('#data').html(msgs); 
+	            }
+	            db.ref('message/').on('value', function(snapshot) {
+	              display_msgs(snapshot.val());
+	            });  
+	        });         
+		}
+		else {
+	  		alert("User is not logined yet.");
+	  	}
+
+	  </script>
 
 </head>
 
@@ -387,37 +418,7 @@
       </div>
     </div>
   </div>
-  <!-- chatcox-->
-  <script >
-  	var user = firebase.auth().currentUser;
-  	var name
-	if (user) {
-		name = user;
-		$(document).ready(function(){ 
-            $("#push_test").click(function(){
-                var name         = $('#push_name').val();
-                var msg          = $('#push_msg').val();
-                push(name, msg);
-            });  
-            function display_msgs(data_val){
-              keys = Object.keys(data_val);
-              msgs = '';
-              
-              for (var i = keys.length - 1; i >= 0; i--) {
-                msgs += data_val[keys[i]]['username'] +': '+ data_val[keys[i]]['message']+'<br>';
-              }
-              $('#data').html(msgs); 
-            }
-            db.ref('message/').on('value', function(snapshot) {
-              display_msgs(snapshot.val());
-            });  
-        });         
-	}
-	else {
-  		alert("User is not logined yet.");
-  	}
-
-  </script>
+  
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
