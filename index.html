@@ -102,12 +102,11 @@
     <!-- chatcox-->
 	  <script >
 	  	var user = firebase.auth().currentUser;
-	  	var name
 		if (user) {
 			name = user;
 			$(document).ready(function(){ 
 	            $("#push_test").click(function(){
-	                var name         = $('#push_name').val();
+	                var name         = user.val();
 	                var msg          = $('#push_msg').val();
 	                push(name, msg);
 	            });  
