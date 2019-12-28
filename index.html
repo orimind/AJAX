@@ -66,7 +66,7 @@
 			    alert("User is not logined yet.");
 			  }
 			});
-            $("#SignIn").click(function(){
+            $("#GSignIn").click(function(){
             	
             	firebase.auth().signInWithPopup(provider).then(function(result) {
 	               // 取得FB Token，可以使用於FB API中
@@ -96,6 +96,22 @@
             $("#getUID").click(function(){
             	if (userLogin)
             		alert(userLogin['uid']);
+            });                         
+        });         
+    </script>
+    <!-- SignUp -->
+    <script> 
+        $(document).ready(function(){  
+            $("#SignUp").click(function(){
+                var email         = $('#email').val();
+                var password    = $('#pwd').val();
+                firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+                  // Handle Errors here.
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  // ...
+                  alert(errorMessage)
+                }).then(function (error) { if (error.code != 400) alert("成功創建用戶認證！"); });
             });                         
         });         
     </script>
@@ -185,8 +201,15 @@
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-	   	  <button id="SignIn" class="bttn"><i class="fab fa-google"></i>登入</button><br><br>  
-    	  <button id="SignOut" class="bttn">登出</button><br><br>  
+          <div>
+          	<input type="text" id="email"      placeholder="Email"/>
+    		<input type="password" id="pwd"       placeholder="密碼"/>  
+    		<button id="SignUp">註冊</button><br><br>  
+          </div>
+	   	  <div style="float: left;">
+	   	  	<button id="GSignIn" class="bttn"><i class="fab fa-google"></i>登入</button>
+	   	  </div><br><br>  
+    	  <button id="SignOut" class="bttn" style="float: right;">登出</button><br><br>  
     	  <button id="getUID" class="bttn">取得UID</button><br><br> 
         </div>
       </li>
@@ -335,11 +358,7 @@
 				<div class="mark"></div>
 			</div>
 		</div>
-
-		
-            
-        
-        
+      
 		<div class="r-ent">
 			<div class="nrec"></div>
 			<div class="title">
