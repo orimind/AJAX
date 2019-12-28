@@ -115,6 +115,43 @@
             });                         
         });         
     </script>
+	<!-- SignIn -->
+    <script>
+        $(document).ready(function(){  
+            $("#SignIn").click(function(){
+                var email         = $('#email').val();
+                var password    = $('#pwd').val();
+                firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+		          // Handle Errors here.
+		          const errorCode = error.code;
+		          const errorMessage = error.message;
+		          // ...
+		          alert(errorMessage)
+		        })
+            });
+            var userLogin;
+			firebase.auth().onAuthStateChanged(function(user) {
+			  if (user) {
+			    userLogin = user;
+			    alert("User is logined")
+			  } else {
+			    userLogin = null;
+			    alert("User is not logined yet.");
+			  }
+			});
+			$("#SignOut").click(function(){
+				firebase.auth().signOut().then(function() {
+			        console.log("User sign out!");
+			    }, function(error) {
+			    console.log("User sign out error!");
+			    })
+			 });
+            $("#getUID").click(function(){
+            	if (userLogin)
+            		alert(userLogin['uid']);
+            });                         
+        });         
+    </script>
     <!-- chatcox-->
 	<script >
 	  	var user = firebase.auth().currentUser;
@@ -204,13 +241,15 @@
           <div>
           	<input type="text" id="email"      placeholder="Email"/>
     		<input type="password" id="pwd"       placeholder="密碼"/>  
-    		<button id="SignUp">註冊</button><br><br>  
+    		<button id="SignIn" style="float: left;">登入</button>
+    		<button id="SignUp" style="float: right;">註冊</button>  
           </div>
-	   	  <div style="float: left;">
+
+	   	  <div>
 	   	  	<button id="GSignIn" class="bttn"><i class="fab fa-google"></i>登入</button>
-	   	  </div><br><br>  
-    	  <button id="SignOut" class="bttn" style="float: right;">登出</button><br><br>  
-    	  <button id="getUID" class="bttn">取得UID</button><br><br> 
+	   	  </div><br>  
+    	  <button id="SignOut" class="bttn" style="float: left;">登出</button> 
+    	  <button id="getUID" class="bttn" style="float: right;">取得UID</button><br>
         </div>
       </li>
     </ul>
