@@ -58,7 +58,6 @@
 		    //所需授權的Scope 
 		    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 		    provider.setCustomParameters({'login_hint': 'user@example.com'});
-		    fprovider.setCustomParameters({'display': 'popup'});
 		    var userLogin;
 			firebase.auth().onAuthStateChanged(function(user) {
 			  if (user) {
