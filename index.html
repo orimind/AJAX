@@ -58,6 +58,7 @@
 		    //所需授權的Scope 
 		    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 		    provider.setCustomParameters({'login_hint': 'user@example.com'});
+		    fprovider.setCustomParameters({'display': 'popup'});
 		    var userLogin;
 			firebase.auth().onAuthStateChanged(function(user) {
 			  if (user) {
@@ -88,7 +89,7 @@
 	            });
             });
             //FBLogin
-            $("#SignIn").click(function(){
+            $("#fSignIn").click(function(){
             	
             	firebase.auth().signInWithPopup(fprovider).then(function(result) {
 	               // 取得FB Token，可以使用於FB API中
