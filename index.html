@@ -160,16 +160,6 @@
 		          alert(errorMessage)
 		        })
             });
-            var userLogin;
-			firebase.auth().onAuthStateChanged(function(user) {
-			  if (user) {
-			    userLogin = user;
-			    alert("User is logined")
-			  } else {
-			    userLogin = null;
-			    alert("User is not logined yet.");
-			  }
-			});
 			$("#SignOut").click(function(){
 				firebase.auth().signOut().then(function() {
 			        console.log("User sign out!");
